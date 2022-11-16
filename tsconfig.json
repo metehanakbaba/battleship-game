@@ -1,4 +1,20 @@
 {
+  "include": [
+    "src/**/*.ts"
+  ],
+  "compileOnSave": false,
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noStrictGenericChecks": true,
+    "outDir": "dist/",
+    "resolveJsonModule": true,
+    "rootDir": "src",
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "target": "es5"
+  },
   "ts-node": {
     "swc": true
   }
