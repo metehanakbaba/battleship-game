@@ -1,21 +1,27 @@
 {
-  "include": [
-    "src/**/*.ts"
-  ],
-  "compileOnSave": false,
   "compilerOptions": {
+    "target": "es6",
+    "module": "esnext",
+    "lib": ["dom", "es5","es6", "es7", "scripthost", "es2015"],
     "moduleResolution": "node",
-    "noImplicitAny": false,
-    "noStrictGenericChecks": true,
-    "outDir": "dist/",
     "resolveJsonModule": true,
-    "rootDir": "src",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "sourceMap": true,
-    "strictNullChecks": false,
-    "strictPropertyInitialization": false,
-    "target": "es5"
+    "downlevelIteration": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "isolatedModules": false,
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+
+    }
   },
   "ts-node": {
     "swc": true
-  }
+  },
+  "exclude": ["node_modules"]
 }
