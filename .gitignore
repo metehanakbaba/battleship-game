@@ -1,9 +1,0 @@
-# Intellij IDEA and other IDE configuration folder
-.idea
-.cache/
-.vscode/
-# Node.js - NPM stuffs
-dist/
-node_modules/
-.env
-package-lock.json
