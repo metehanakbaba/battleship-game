@@ -96,7 +96,7 @@ const Game: React.FunctionComponent<any> = () => {
             placeholder="Enter coordinates (row, col), e.g. A5"
             value={coordinates}
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              const regex = /[ABC][1-9]?[0-9]/gm;
+              const regex = /[A-Z][1-9]?[0-9]/gm;
               let m;
               const text = e.target.value.toUpperCase();
 
