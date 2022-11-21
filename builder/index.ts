@@ -24,6 +24,8 @@ command('build:client', 'Build client', async (_: Argv) => {
 
   await Builder('browser', {
     outdir: './build/public/static/',
+    sourcemap: false,
+    minify: true,
   }).catch(() => {
     process.exit(1);
   });
