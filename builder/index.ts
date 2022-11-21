@@ -1,8 +1,9 @@
+import { BuildInvalidate } from 'esbuild';
 import { command, Argv } from 'yargs';
 import { rmSync } from 'fs';
 import { Builder } from './builder';
 import { startDevelopmentServer, updateBuildTemplate, watcher } from './plugins';
-import { BuildInvalidate } from 'esbuild';
+import env from '../env';
 
 command('build:server', 'Build server.', async (_: Argv) => {
   await Builder('node', {
@@ -47,5 +48,5 @@ command('dev:client', 'Start the server.', async (_: Argv) => {
   watcher('./src/browser/**/*.{ts,tsx}', rebuild as BuildInvalidate);
   await updateBuildTemplate();
 
-  await startDevelopmentServer('./build/public/', 8000);
+  await startDevelopmentServer('./build/public/', env.express.port);
 }).argv;
