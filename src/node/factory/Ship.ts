@@ -1,6 +1,6 @@
 import generateUUID from '../../browser/utils/uuid';
 
-export interface ShipInterface {
+export interface IShip {
   id: string;
   name: string;
   sank: boolean;
@@ -10,7 +10,7 @@ export interface ShipInterface {
   hit: (position: number) => void;
 }
 
-const Ship = function (shipName: string, size = 0): ShipInterface {
+const Ship = function (shipName: string, size = 0): IShip {
   const hits: number[] = [];
   const length: number = size;
   const name: string = shipName;

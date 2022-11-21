@@ -5,14 +5,14 @@ import { Builder } from './builder';
 import { startDevelopmentServer, updateBuildTemplate, watcher } from './plugins';
 import env from '../env';
 
-command('build:server', 'Build server.', async (_: Argv) => {
+command('build:node', 'Build node.', async (_: Argv) => {
   await Builder('node', {
     sourcemap: false,
     outdir: './build/',
   }).catch(() => {
     process.exit(1);
   });
-  process.exit(0);
+  await startDevelopmentServer('./build/public/', env.express.port);
 }).argv;
 
 command('build:client', 'Build client', async (_: Argv) => {
@@ -32,15 +32,7 @@ command('build:client', 'Build client', async (_: Argv) => {
   process.exit(0);
 }).argv;
 
-command('dev:server', 'Start the server.', async (_: Argv) => {
-  const { rebuild } = await Builder('node', {
-    outdir: './build/',
-  });
-
-  watcher('./src/node/**/*.ts', rebuild as BuildInvalidate);
-}).argv;
-
-command('dev:client', 'Start the server.', async (_: Argv) => {
+command('dev:client', 'Start the client.', async (_: Argv) => {
   const { rebuild } = await Builder('browser', {
     outdir: './build/public/static/',
   });

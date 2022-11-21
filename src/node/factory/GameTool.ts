@@ -1,5 +1,6 @@
-import { ShipInterface } from './Ship';
+import { IShip } from './Ship';
 import env from '../../../env';
+import { IEngine } from './Engine';
 
 const SIZE = env.game.grid;
 
@@ -61,7 +62,7 @@ export const isNeighbourFieldsAreTaken = (ship, row, col, isVertical, board) => 
   return true;
 };
 
-export const isEmpty = (board: ShipInterface[][]) => {
+export const isEmpty = (board: IShip[][]) => {
   for (let i = 0; i < SIZE; i++) {
     for (let j = 0; j < SIZE; j++) {
       if (board[i][j] !== null) return false;
@@ -70,17 +71,13 @@ export const isEmpty = (board: ShipInterface[][]) => {
   return true;
 };
 
-/*
-
- // TODO will be used later
-
-const getEmptyFieldsAmount = (board: ShipInterface[][]) => {
+export const getEmptyFieldsAmount = (engine: IEngine) => {
   let result = 0;
   for (let i = 0; i < SIZE; i++) {
     for (let j = 0; j < SIZE; j++) {
-      if (board[i][j] === null) result++;
+      if (engine.board[i][j] === null) result++;
     }
   }
+
   return result;
 };
-*/

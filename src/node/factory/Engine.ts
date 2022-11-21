@@ -1,4 +1,4 @@
-import Ship, { ShipInterface } from './Ship';
+import Ship, { IShip } from './Ship';
 import { isEmpty, isFieldTaken, isFitInGameBoard, isNeighbourFieldsAreTaken } from './GameTool';
 import env from '../../../env';
 
@@ -14,13 +14,15 @@ export interface IEngine {
   isGameOver: () => boolean;
   placeRandomly: () => void;
   sunkenShips: SunkenShips[];
-  board: ShipInterface[][];
+  board: IShip[][];
+  place: (ship: IShip, row: number, col: number, isVertical: boolean) => boolean;
   attack: (row: number, col: number) => boolean;
+  isPlacementPossible: (ship: IShip, row: number, col: number, isVertical: boolean) => boolean;
 }
 
 export default function Engine(): IEngine {
   const miss: boolean[][] = [];
-  const board: ShipInterface[][] = [];
+  const board: IShip[][] = [];
   const sunkenShips: SunkenShips[] = [];
   const SIZE = env.game.grid;
 
@@ -65,7 +67,7 @@ export default function Engine(): IEngine {
     }
   };
 
-  const place = (ship: ShipInterface, row: number, col: number, isVertical: boolean): boolean => {
+  const place = (ship: IShip, row: number, col: number, isVertical: boolean): boolean => {
     if (!isPlacementPossible(ship, row, col, isVertical)) return false;
 
     if (isVertical) {
@@ -88,7 +90,7 @@ export default function Engine(): IEngine {
   const placeRandomly = () => {
     if (!isEmpty(board)) return;
 
-    const ships: ShipInterface[] = [];
+    const ships: IShip[] = [];
     env.game.ships.map((ship) => ships.push(Ship(ship.name, ship.size)));
 
     let placed = 0;
@@ -102,7 +104,7 @@ export default function Engine(): IEngine {
     }
   };
 
-  const isPlacementPossible = (ship: ShipInterface, row: number, col: number, isVertical: boolean) => {
+  const isPlacementPossible = (ship: IShip, row: number, col: number, isVertical: boolean) => {
     return (
       isFieldTaken(ship, row, col, isVertical, board) &&
       isFitInGameBoard(ship, row, col, isVertical) &&
@@ -119,10 +121,10 @@ export default function Engine(): IEngine {
       });
     });
 
-    return sunkenShips.filter(({ sank }) => sank).length === sunkenShips.length;
+    return sunkenShips.filter(({ sank }) => sank).length === sunkenShips.length && sunkenShips.length > 0;
   };
 
-  const markSunkenShip = (ship: ShipInterface) => {
+  const markSunkenShip = (ship: IShip) => {
     const condition = sunkenShips.some(({ id, sank }) => id == ship.id && !sank);
     if (condition) {
       sunkenShips.map((sunkenShip) => {
@@ -139,7 +141,9 @@ export default function Engine(): IEngine {
     miss,
     attack,
     placeRandomly,
+    place,
     isGameOver,
+    isPlacementPossible,
     sunkenShips,
   };
 }
